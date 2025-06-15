@@ -1,0 +1,33 @@
+Q:How to help end user change password?
+A:Please remind employees to connect to VPN when they try changing passwords! 
+    - Log in to “portal.office.com” and click initial icon on the top right corner.
+    - After that, click “View account” and scroll down to choose “CHANGE PASSWORD”
+    - Enter old password and create new password
+    - IMPORTANT: 
+        - The password should be at least 10 characters.
+        - The password should include upper, lower case, number, and special characters. 
+        - Also, the password CANNOT include employee name or company name. 
+        - Then, press Ctrl + Alt + Del and click "Lock" NOT sign out.
+        - Retype the new password to log back in. If it's a success, then it's all set.
+Q:After changing password, how to update with Employee Wi-Fi for head quarter employees?
+A:     -iPhone user
+        - Go to “Settings” select “Wi-Fi” and click the blue “i” icon on “Employee” 
+            - Then press “Forget This Network”
+            - Then select “Employee” Wi-Fi again and type new password
+            - Click “Trust” for this network, and all set. 
+        - Android user
+            - Go to “Settings” and select “Employee“ Wi-Fi
+            - For certificate: pick “system certificate (domain: fpcusa.com)”
+            - Identity: (corporate email)
+            - Code: (corporate password)
+Q: How to set up new employee computer with Intune?
+A: use intunecgu@inteplast.com to login with windows out-of-box window and get the laptop name. Login to intune admin portal and target the device under intunecgu@inteplast.com. Assign a name to the device and assign the device into ZTD_AP_IPG_Direct group. Login to the laptop with intunecgu@inteplast.com and wait for the programs to auto-pilot. 
+Q: How to help employee do the travel request whitelist?
+A: 	- Go to: travel.inteplast.com
+		- Press "+ New" for a new request
+		- Press "item" under "+ New"
+		- Fill in the username and "Duration"
+		- Then, press "Save."
+Q:I help employees run Dell command update on their dell laptop, but not able to update, what to do?
+A:Go to Dell official site and install the universal dell command driver. 
+
