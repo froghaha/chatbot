@@ -9,18 +9,13 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import TextLoader, PyMuPDFLoader
 from langchain.docstore.document import Document
 
-# Load environment variables
-#load_dotenv()
-#USER_CREDENTIALS = json.loads(os.getenv("USER_CREDENTIALS", '{"admin": "1234"}'))
+
 
 
 openai_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
 USER_CREDENTIALS = json.loads(
-    st.secrets.get("USER_CREDENTIALS", os.getenv("USER_CREDENTIALS", '{"admin": "1234"}'))
-)
-
-#openai_key = st.secrets["OPENAI_API_KEY"]
-# Authentication
+    st.secrets.get("USER_CREDENTIALS", os.getenv("USER_CREDENTIALS")))
+    # Authentication
 def authenticate(username, password):
     return USER_CREDENTIALS.get(username) == password
 
