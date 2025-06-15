@@ -1,0 +1,8 @@
+# 忽略本機開發環境的機密檔案
+.env
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
