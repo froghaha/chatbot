@@ -9,8 +9,17 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import TextLoader, PyMuPDFLoader
 from langchain.docstore.document import Document
 
-openai_key = os.getenv("OPENAI_API_KEY") or st.secrets.get("OPENAI_API_KEY")
-user_credentials = os.getenv("USER_CREDENTIALS") or st.secrets.get("USER_CREDENTIALS")
+# Safely load secrets from env or Streamlit secrets
+if "OPENAI_API_KEY" in os.environ:
+    openai_key = os.environ["OPENAI_API_KEY"]
+else:
+    openai_key = st.secrets["OPENAI_API_KEY"]
+
+if "USER_CREDENTIALS" in os.environ:
+    user_credentials = os.environ["USER_CREDENTIALS"]
+else:
+    user_credentials = st.secrets["USER_CREDENTIALS"]
+
 USER_CREDENTIALS = json.loads(user_credentials)
 
     # Authentication
