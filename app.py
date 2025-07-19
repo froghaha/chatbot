@@ -22,8 +22,10 @@ openai_key = get_secret("OPENAI_API_KEY")
 #USER_CREDENTIALS = json.loads(get_secret("USER_CREDENTIALS"))
 
 # Azure AD SSO Authentication
+import streamlit.web.server.websocket_headers as _wh  # <-- NEW import
+
 def get_azure_ad_user():
-    principal_header = os.environ.get("HTTP_X_MS_CLIENT_PRINCIPAL")
+    principal_header = _wh._get_websocket_headers().get("X-MS-CLIENT-PRINCIPAL")
     if not principal_header:
         return None
     try:
