@@ -19,28 +19,24 @@ def get_secret(key):
         raise ValueError(f"Missing secret: {key}")
 
 openai_key = get_secret("OPENAI_API_KEY")
-USER_CREDENTIALS = json.loads(get_secret("USER_CREDENTIALS"))
+#USER_CREDENTIALS = json.loads(get_secret("USER_CREDENTIALS"))
 
-    # Authentication
-def authenticate(username, password):
-    return USER_CREDENTIALS.get(username) == password
+# Azure AD SSO Authentication
+def get_azure_ad_user():
+    principal_header = os.environ.get("HTTP_X_MS_CLIENT_PRINCIPAL")
+    if not principal_header:
+        return None
+    decoded = base64.b64decode(principal_header)
+    principal = json.loads(decoded)
+    return principal.get("userDetails")
 
-def login_form():
-    st.title("🔐 請先登入")
-    with st.form("login"):
-        username = st.text_input("使用者名稱")
-        password = st.text_input("密碼", type="password")
-        if st.form_submit_button("登入"):
-            if authenticate(username, password):
-                st.session_state.authenticated = True
-                st.success("✅ 登入成功")
-                st.rerun()
-            else:
-                st.error("❌ 使用者名稱或密碼錯誤")
+user = get_azure_ad_user()
 
-if not st.session_state.get("authenticated", False):
-    login_form()
+if not user:
+    st.error("🔒 You must be logged in via Azure AD to access this app.")
     st.stop()
+else:
+    st.success(f"✅ Logged in as: {user}")   
 
 # Page config
 st.set_page_config(page_title="Intern Q&A ChatBot", page_icon="🤖")
