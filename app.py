@@ -10,17 +10,21 @@ from langchain_community.document_loaders import TextLoader, PyMuPDFLoader
 from langchain.docstore.document import Document
 
 # Safely load secrets from env or Streamlit secrets
-if "OPENAI_API_KEY" in os.environ:
-    openai_key = os.environ["OPENAI_API_KEY"]
-else:
-    openai_key = st.secrets["OPENAI_API_KEY"]
 
-if "USER_CREDENTIALS" in os.environ:
-    user_credentials = os.environ["USER_CREDENTIALS"]
-else:
-    user_credentials = st.secrets["USER_CREDENTIALS"]
+load_dotenv()
+openai_key = os.getenv("OPENAI_API_KEY")
+USER_CREDENTIALS = json.loads(os.getenv("USER_CREDENTIALS", '{"admin": "1234"}'))
+#if "OPENAI_API_KEY" in os.environ:
+ #   openai_key = os.environ["OPENAI_API_KEY"]
+#else:
+ #   openai_key = st.secrets["OPENAI_API_KEY"]
 
-USER_CREDENTIALS = json.loads(user_credentials)
+#if "USER_CREDENTIALS" in os.environ:
+ #   user_credentials = os.environ["USER_CREDENTIALS"]
+#else:
+ #   user_credentials = st.secrets["USER_CREDENTIALS"]
+
+#USER_CREDENTIALS = json.loads(user_credentials)
 
     # Authentication
 def authenticate(username, password):
