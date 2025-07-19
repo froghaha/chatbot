@@ -9,12 +9,10 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import TextLoader, PyMuPDFLoader
 from langchain.docstore.document import Document
 
+openai_key = os.getenv("OPENAI_API_KEY") or st.secrets.get("OPENAI_API_KEY")
+user_credentials = os.getenv("USER_CREDENTIALS") or st.secrets.get("USER_CREDENTIALS")
+USER_CREDENTIALS = json.loads(user_credentials)
 
-
-
-openai_key = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
-USER_CREDENTIALS = json.loads(
-    st.secrets.get("USER_CREDENTIALS", os.getenv("USER_CREDENTIALS")))
     # Authentication
 def authenticate(username, password):
     return USER_CREDENTIALS.get(username) == password
