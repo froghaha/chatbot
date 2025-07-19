@@ -26,17 +26,20 @@ def get_azure_ad_user():
     principal_header = os.environ.get("HTTP_X_MS_CLIENT_PRINCIPAL")
     if not principal_header:
         return None
-    decoded = base64.b64decode(principal_header)
-    principal = json.loads(decoded)
-    return principal.get("userDetails")
+    try:
+        decoded = base64.b64decode(principal_header)
+        principal = json.loads(decoded)
+        return principal.get("userDetails")
+    except Exception:
+        return None
 
 user = get_azure_ad_user()
 
 if not user:
-    st.error("🔒 You must be logged in via Azure AD to access this app.")
-    st.stop()
+    st.warning("🔐 Azure AD login not detected. You're seeing fallback access (for debugging).")
+    # st.stop()  # Uncomment this to enforce Azure AD login
 else:
-    st.success(f"✅ Logged in as: {user}")   
+    st.success(f"✅ Logged in as: {user}")
 
 # Page config
 st.set_page_config(page_title="Intern Q&A ChatBot", page_icon="🤖")
