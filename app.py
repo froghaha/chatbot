@@ -25,14 +25,21 @@ openai_key = get_secret("OPENAI_API_KEY")
 import streamlit.web.server.websocket_headers as _wh  # <-- NEW import
 
 def get_azure_ad_user():
-    principal_header = _wh._get_websocket_headers().get("X-MS-CLIENT-PRINCIPAL")
-    if not principal_header:
-        return None
     try:
+        headers = st.experimental_get_query_params()  # For Streamlit <1.30 fallback
+        # NEW: use st.request.headers (preferred)
+        if hasattr(st, "request") and hasattr(st.request, "headers"):
+            principal_header = st.request.headers.get("X-MS-CLIENT-PRINCIPAL")
+        else:
+            import streamlit.web.server.websocket_headers as _wh
+            principal_header = _wh._get_websocket_headers().get("X-MS-CLIENT-PRINCIPAL")
+
+        if not principal_header:
+            return None
         decoded = base64.b64decode(principal_header)
         principal = json.loads(decoded)
         return principal.get("userDetails")
-    except Exception:
+    except Exception as e:
         return None
 
 user = get_azure_ad_user()
